@@ -4,7 +4,7 @@ This is an example journey of building a simple REST api that reads and writes d
 
 The journey consists of four steps:
 
-Step 1:
+## Step 1:
 
 Initialize the the project with Spring initializer and create a minimal hello world example with a Rext controller. 
 
@@ -51,7 +51,7 @@ When running on gitpod, navigage to your equivalent page to see the greeting, e.
 https://8080-fc467d78-1ba4-4011-afdc-80525e2a26bf.ws-eu01.gitpod.io/greeting
 ```
 
-Step 2:
+##  Step 2:
 
 Expand the structure of the project with a Rest controller, an interface and an implementation of the interface, wire the implementation to the controller.
 
@@ -81,14 +81,71 @@ In the `/greeting` route we are now using the methods from the interface (which 
     }
 ```
 
-
-
-
-Step 3:
+## Step 3:
 
 Create a Cassandra driver bean that connects to an Astra instance and wire it to the implementation. Test with reads.
 
-Step 4: 
+Create a class with annotation @Configuration
+
+```
+import com.datastax.oss.driver.api.core.CqlSession;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class AstraDriverConfig {
+
+    @Bean
+    public CqlSession cqlSession() {
+        return CqlSession.builder().build();
+    }
+}
+```
+
+We then autowire this into the implementation:
+
+```
+    @Autowired
+    public CqlSession cqlSession;
+
+    public GreetingImplementation(CqlSession cqlSession){
+        this.cqlSession = cqlSession;
+    }
+```
+
+And we use a `select` statement to read from a greeting from the database:
+
+```
+    @Override
+    public String sayHello() {
+
+        //This assumes a table of name greeting with a column of name greeting in the database
+        SimpleStatement statement = SimpleStatement.builder("select * from greeting").build();
+
+        ResultSet result = this.cqlSession.execute(statement);
+
+        Row row = result.one();
+
+
+        return row.getString("greeting");
+    }
+```
+
+This requires a table of name `greeting` with a column `greeting` in the Astra database.
+
+We also need to add the driver dependency to our pom.xml
+
+```
+		<dependency>
+			<groupId>com.datastax.oss</groupId>
+			<artifactId>java-driver-core</artifactId>
+			<version>4.6.1</version>
+		</dependency>
+```
+
+
+
+## Step 4: 
 
 Expand the interface and its implementation for further reads and writes to database. 
 
