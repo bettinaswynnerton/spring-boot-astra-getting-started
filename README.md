@@ -67,14 +67,14 @@ A specific implementation of the interface. The implementation is annotated with
 
 And we are autowiring the interface to the rest controller with this annotation:
 
-```
+```java
     @Autowired
     private GreetingService greetingservice;
 ```
 
 In the `/greeting` route we are now using the methods from the interface (which in turn uses the implementation):
 
-```
+```java
     @GetMapping("/greeting")
     public String  hello(){
         return greetingservice.sayHello();
@@ -87,7 +87,7 @@ Create a Cassandra driver bean that connects to an Astra instance and wire it to
 
 Create a class with annotation @Configuration
 
-```
+```java
 import com.datastax.oss.driver.api.core.CqlSession;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -104,7 +104,7 @@ public class AstraDriverConfig {
 
 We then autowire this into the implementation:
 
-```
+```java
     @Autowired
     public CqlSession cqlSession;
 
@@ -115,7 +115,7 @@ We then autowire this into the implementation:
 
 And we use a `select` statement to read from a greeting from the database:
 
-```
+```java
     @Override
     public String sayHello() {
 
@@ -135,7 +135,7 @@ This requires a table of name `greeting` with a column `greeting` in the Astra d
 
 We also need to add the driver dependency to our pom.xml
 
-```
+```xml
 		<dependency>
 			<groupId>com.datastax.oss</groupId>
 			<artifactId>java-driver-core</artifactId>
@@ -149,5 +149,59 @@ We also need to add the driver dependency to our pom.xml
 
 Expand the interface and its implementation for further reads and writes to database. 
 
+Adding additional methods to the interface:
+
+```java
+    public String sayHelloLanguage(String language);
+
+    public String insertGreeting(String language, String greeting);
+```
+
+which are implemented like this: 
+
+```java
+    @Override
+    public String sayHelloLanguage(String language) {
+
+        SimpleStatement languageStatement = SimpleStatement.builder(
+                "select * from greeting where language = ?")
+                .addPositionalValue(language).build();
+
+        ResultSet result2 = this.cqlSession.execute(languageStatement);
+
+        Row row2 = result2.one();
+
+        return row2.getString("greeting");
+    }
+
+    @Override
+    public String insertGreeting(String language, String greeting) {
+
+        SimpleStatement insertStatement = SimpleStatement.builder(
+                "insert into greeting (language, greeting) values (?,?)")
+                .addPositionalValue(language)
+                .addPositionalValue(greeting)
+                .build();
+
+        this.cqlSession.execute(insertStatement);
+
+        return "values inserted";
+    }
+```
+
+These methods take parameters, which are the request parameters passed by the rest service:
+
+```java
+    @GetMapping("/language")
+    public String hellolanguage(@RequestParam(value="language") String language){
+        return greetingservice.sayHelloLanguage(language);
+    }
+
+    @GetMapping("/insert")
+    public  String insertGreeting(@RequestParam(value="language") String language,
+                                  @RequestParam(value="greeting") String greeting){
+        return greetingservice.insertGreeting(language, greeting);
+    }
+```
 
 
