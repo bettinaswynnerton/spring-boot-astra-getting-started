@@ -43,7 +43,7 @@ Ctrl-C and mvn spring-boot:run to restart the app, navigate to http://localhost:
 
 Run the project from this folder in gitpod.
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://github.com/bettinaswynnerton/spring-boot-astra-getting-started/)
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/bettinaswynnerton/spring-boot-astra-getting-started/)
 
 Step 2:
 
