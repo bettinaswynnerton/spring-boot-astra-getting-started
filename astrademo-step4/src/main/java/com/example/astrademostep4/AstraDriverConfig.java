@@ -1,4 +1,4 @@
-package com.example.astrademostep3;
+package com.example.astrademostep4;
 
 import com.datastax.oss.driver.api.core.CqlSession;
 import org.springframework.context.annotation.Bean;
