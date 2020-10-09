@@ -55,6 +55,33 @@ Step 2:
 
 Expand the structure of the project with a Rest controller, an interface and an implementation of the interface, wire the implementation to the controller.
 
+We are adding a couple of files:
+
+`GreetingService.java`
+
+The implementation agnostic interface that defines our methods for a greeting service.
+
+`GreetingImplementation.java`
+
+A specific implementation of the interface. The implementation is annotated with `@Component` for autodiscovery by the Spring framework. 
+
+And we are autowiring the interface to the rest controller with this annotation:
+
+```
+    @Autowired
+    private GreetingService greetingservice;
+```
+
+In the `/greeting` route we are now using the methods from the interface (which in turn uses the implementation):
+
+```
+    @GetMapping("/greeting")
+    public String  hello(){
+        return greetingservice.sayHello();
+    }
+```
+
+
 
 
 Step 3:
