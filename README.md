@@ -43,6 +43,8 @@ Ctrl-C and mvn spring-boot:run to restart the app, navigate to http://localhost:
 
 Run the project from this folder in gitpod.
 
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://github.com/bettinaswynnerton/spring-boot-astra-getting-started/)
+
 Step 2:
 
 Expand the structure of the project with a Rest controller, an interface and an implementation of the interface, wire the implementation to the controller.
