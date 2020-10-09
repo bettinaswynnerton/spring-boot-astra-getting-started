@@ -45,6 +45,12 @@ Run the project from this folder in gitpod.
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/bettinaswynnerton/spring-boot-astra-getting-started/)
 
+When running on gitpod, navigage to your equivalent page to see the greeting, e.g:
+
+```
+https://8080-fc467d78-1ba4-4011-afdc-80525e2a26bf.ws-eu01.gitpod.io/greeting
+```
+
 Step 2:
 
 Expand the structure of the project with a Rest controller, an interface and an implementation of the interface, wire the implementation to the controller.
