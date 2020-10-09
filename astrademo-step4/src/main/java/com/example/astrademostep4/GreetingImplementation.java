@@ -35,7 +35,7 @@ public class GreetingImplementation implements GreetingService {
     public String sayHelloLanguage(String language) {
 
         SimpleStatement languageStatement = SimpleStatement.builder(
-                "select * from greeting2 where language = ?")
+                "select * from greeting where language = ?")
                 .addPositionalValue(language).build();
 
         ResultSet result2 = this.cqlSession.execute(languageStatement);
@@ -49,7 +49,7 @@ public class GreetingImplementation implements GreetingService {
     public String insertGreeting(String language, String greeting) {
 
         SimpleStatement insertStatement = SimpleStatement.builder(
-                "insert into greeting2 (language, greeting) values (?,?)")
+                "insert into greeting (language, greeting) values (?,?)")
                 .addPositionalValue(language)
                 .addPositionalValue(greeting)
                 .build();
