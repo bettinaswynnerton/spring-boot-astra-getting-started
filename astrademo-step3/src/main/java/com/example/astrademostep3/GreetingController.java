@@ -1,4 +1,4 @@
-package com.example.astrademostep2;
+package com.example.astrademostep3;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
