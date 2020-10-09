@@ -2,6 +2,26 @@
 
 This is an example journey of building a simple REST api that reads and writes data to Datastax Astra, starting with the Spring boot initializer.
 
+Prerequisites for step 3 and 4:
+You need a Datastax Astra instance with this table:
+
+```cql
+CREATE TABLE spacecraft.greeting (
+    language text PRIMARY KEY,
+    greeting text
+)
+```
+
+and with some example data:
+
+```
+ language | greeting
+----------+-------------
+   French |     Bonjour
+  Italian |        Ciao
+  English | Hello hello
+```
+
 The journey consists of four steps:
 
 ## Step 1:
@@ -203,5 +223,7 @@ These methods take parameters, which are the request parameters passed by the re
         return greetingservice.insertGreeting(language, greeting);
     }
 ```
+
+These routes now allow to display a greeting by language, and to insert new data. 
 
 
