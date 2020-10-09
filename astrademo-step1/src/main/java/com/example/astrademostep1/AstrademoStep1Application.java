@@ -1,13 +1,13 @@
-package com.example.astrademo;
+package com.example.astrademostep1;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class AstrademoApplication {
+public class AstrademoStep1Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Astrademo5Application.class, args);
+		SpringApplication.run(AstrademoStep1Application.class, args);
 	}
 
 }

@@ -1,10 +1,10 @@
-package com.example.astrademo5;
+package com.example.astrademostep1;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class Astrademo5ApplicationTests {
+class AstrademoStep1ApplicationTests {
 
 	@Test
 	void contextLoads() {
